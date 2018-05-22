@@ -7,7 +7,7 @@ with open('M6B.csv', 'a') as f:
         power_on_cmd = "ipmitool -I lanplus -H %s -U admin -P admin power on" % ip
         os.popen(power_on_cmd)
 
-        sn_cmd = "ipmitool -I lanplus -H %s -U admin -P admin fru | grep 'Product Serial' |awk -F ':' '{print $2}'" % ip
+        sn_cmd = "ipmitool -I lanplus -H %s -U admin -P admin fru | grep 'Product Serial' |awk -F ':' '{print $2}'|uniq" % ip
         sn = os.popen(sn_cmd).read().strip()
         
         mac1_cmd = "ipmitool -I lanplus -H %s -U admin -P admin raw 0x3a 0x02 0x04 0x00 0x00" % ip
